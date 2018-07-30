@@ -1,0 +1,149 @@
+// Learn cc.Class:
+//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
+//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
+// Learn Attribute:
+//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
+//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
+// Learn life-cycle callbacks:
+//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
+//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
+import player from "player"
+import enemy from "enemy"
+var varr = require("Globals");
+var gamemgr = cc.Class({
+    extends: cc.Component,
+
+    properties: {
+        // foo: {
+        //     // ATTRIBUTES:
+        //     default: null,        // The default value will be used only when the component attaching
+        //                           // to a node for the first time
+        //     type: cc.SpriteFrame, // optional, default is typeof default
+        //     serializable: true,   // optional, default is true
+        // },
+        // bar: {
+        //     get () {
+        //         return this._bar;
+        //     },
+        //     set (value) {
+        //         this._bar = value;
+        //     }
+        // },
+
+        width:20,
+        body_width:20,
+        
+
+        score: -1,
+
+        // score label 的引用
+        scoreDisplay: {
+            default: null,
+            type: cc.Label
+        },
+        // player 节点，用于获取主角弹跳的高度，和控制主角行动开关
+        player: {
+            default: null,
+            type: player
+        },
+        // enemy 节点，用于获取主角弹跳的高度，和控制主角行动开关
+        enemy: {
+            default: null,
+            type: enemy
+        },
+        speed:10,
+        step:{
+            default:0,
+            visible:false
+        },
+        enemy_n:{
+            default:0,
+            visible:false
+        },
+        dead:false,
+    },
+
+    // LIFE-CYCLE CALLBACKS:
+
+    onLoad () {
+        // cc.log("game_mgr loading ...")
+        varr.score = 0
+        this.gainScore()
+        // 生成一个新的星星
+        // this.spawnNewEnemy();
+        // this.spawnNewSnake();
+        
+    },
+
+    start () {
+
+    },
+
+    update (dt) {
+        if(this.dead)
+        { return }
+        this.step++
+        if(this.step % this.speed != 0){
+            return
+        }
+        const ret = this.player.move(this.enemy.n)
+        if(ret == -1){
+            this.dead = true
+            this.gameOver(this.score)
+        }else if(ret == 1){
+            this.gainScore()
+            var enemy_new_n = this.randEnemyPos()
+            this.enemy.setN(enemy_new_n, 20)
+        }
+    },
+
+    gameOver:function(point){
+        varr.score = point
+        cc.director.loadScene("gameend")
+    },
+
+    gainScore: function () {
+        this.score += 1;
+        // 更新 scoreDisplay Label 的文字
+        this.scoreDisplay.string = "得分 " + this.score
+        // this.score.toString();
+        // 播放得分音效
+        cc.audioEngine.playEffect(this.scoreAudio, false);
+    },
+    directionChange: function(n){
+        console.log("directionChange ", n)
+        // this.gainScore()
+        this.player.changeDirection(n)
+        this.step = this.speed - 1
+    },
+
+    randEnemyPos:function(){
+        var total = this.player.SIDE_NUM * this.player.SIDE_NUM
+        var rand_n = Math.floor(Math.random() * total)
+        cc.log("enemy_new_n ", rand_n)
+        
+        var breakFlag = false
+        for (var j = 0; j < total; j++) {
+            breakFlag = false
+            for (var i = 0; i < this.player.bodys.length - 1; i++) {
+                if(this.player.bodys[i].getN() == rand_n%total){
+                    rand_n += 1
+                    breakFlag = true
+                    break
+                }
+            }
+        }
+        // 这里表示已经没有空位置了
+        if(breakFlag){
+            return -1
+        }
+        return rand_n
+    },
+
+    restart:function(){
+
+    }
+});
+
+
+
