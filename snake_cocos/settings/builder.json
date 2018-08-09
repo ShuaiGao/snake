@@ -2,12 +2,14 @@
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
-  "excludeScenes": [],
+  "excludeScenes": [
+    "afb712d5-ff8a-42c4-bd5b-b04d66f830e5"
+  ],
   "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
   "inlineSpriteFrames": true,
-  "inlineSpriteFrames_native": true,
+  "inlineSpriteFrames_native": false,
   "jailbreakPlatform": false,
   "md5Cache": false,
   "mergeStartScene": false,
@@ -27,14 +29,14 @@
   },
   "renderMode": "1",
   "startScene": "2d2f792f-a40c-49bb-a189-ed176a246e49",
-  "title": "snake_cocos",
+  "title": "snake",
   "webOrientation": "auto",
   "wechatgame": {
     "REMOTE_SERVER_ROOT": "",
     "appid": "wx6ac3f5090a6b99c5",
     "isSubdomain": false,
     "orientation": "portrait",
-    "subContext": "snake-sub"
+    "subContext": "sub"
   },
   "xxteaKey": "77d90a7f-5a51-4c",
   "zipCompressJs": true

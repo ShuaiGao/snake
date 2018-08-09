@@ -34,7 +34,7 @@ var gamemgr = cc.Class({
         body_width:20,
         
 
-        score: -1,
+        score: 0,
 
         // score label 的引用
         scoreDisplay: {
@@ -61,6 +61,11 @@ var gamemgr = cc.Class({
             visible:false
         },
         dead:false,
+        // 跳跃音效资源
+        scoreAudio: {
+            default: null,
+            url: cc.AudioClip
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -68,7 +73,7 @@ var gamemgr = cc.Class({
     onLoad () {
         // cc.log("game_mgr loading ...")
         varr.score = 0
-        this.gainScore()
+        // this.gainScore()
         // 生成一个新的星星
         // this.spawnNewEnemy();
         // this.spawnNewSnake();
@@ -97,9 +102,19 @@ var gamemgr = cc.Class({
         }
     },
 
-    gameOver:function(point){
-        varr.score = point
+    gameOver:function(score){
+        varr.score = score
         cc.director.loadScene("gameend")
+        // 提交得分
+        if (CC_WECHATGAME) {
+            window.wx.postMessage({
+                messageType: 3,
+                MAIN_MENU_NUM: "x1",
+                score: score,
+            });
+        } else {
+            cc.log("提交得分: x1 : " + score)
+        }
     },
 
     gainScore: function () {
@@ -111,7 +126,7 @@ var gamemgr = cc.Class({
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
     directionChange: function(n){
-        console.log("directionChange ", n)
+        // console.log("directionChange ", n)
         // this.gainScore()
         this.player.changeDirection(n)
         this.step = this.speed - 1

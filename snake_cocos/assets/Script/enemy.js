@@ -57,12 +57,12 @@ cc.Class({
         this.setN(n)
     },
     setN:function(n, SIDE_NUM){
-        cc.log("setN ",n, SIDE_NUM, this.node.x, this.node.y)
-        cc.log("setN ",this.node)
+        // cc.log("setN ",this.node.width)
+        // cc.log("setN ",n, SIDE_NUM, this.node.x, this.node.y)
         this.n = n
         this.node.x = (n%SIDE_NUM) * this.node.width + this.node.width/2
         this.node.y = -Math.floor(n/SIDE_NUM)* this.node.height - this.node.height/2
-        cc.log("setN ",n, SIDE_NUM, this.node.x, this.node.y)
+        // cc.log("setN ",n, SIDE_NUM, this.node.x, this.node.y)
     },
     getN:function(){
         // console.log("ememy getN ");

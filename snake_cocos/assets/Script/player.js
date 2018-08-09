@@ -9,6 +9,7 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 import body from "body";
 import gamemgr from "gamemgr";
+import enemy from "enemy"
 var com = require("common");
 cc.Class({
     extends: cc.Component,
@@ -49,7 +50,7 @@ cc.Class({
         },
         enemy: {
             default: null,
-            type:cc.Node
+            type:enemy
         },
         bodys:{
             default:[],
@@ -83,14 +84,11 @@ cc.Class({
 
     // LIFE-CYCLE CALLBACKS:
     swapnBody:function(n){
-        console.log("swapnBody " , 11111111111)
         var newBody = cc.instantiate(this.bodyPrefab);
         // 将新增的节点添加到 Canvas 节点下面
         this.node.addChild(newBody);
         // console.log("sqapnBody ", type(newBody))
-        console.log("swapnBody " , 22222222222)
         newBody.getComponent("body").setN(n, this.SIDE_NUM);
-        console.log("swapnBody " , 3333333333333)
         return newBody;
     },
     move:function(enemy_n){
@@ -126,6 +124,11 @@ cc.Class({
         if (head_n == enemy_n)
         {
             this.bodys.push(this.swapnBody(head_n).getComponent("body"))    
+            // console.log("enemy_new_n 111" )
+            // var enemy_new_n = this.randEnemyPos()
+            // console.log("enemy_new_n ", enemy_new_n)
+            
+            // this.enemy.setN(enemy_new_n, 20)
             ret = 1
         }
         else{
@@ -191,5 +194,27 @@ cc.Class({
         //     console.log("body " ,i ),
         //     this.bodys[i].setN(n+i)
         // }
+    },
+    randEnemyPos:function(){
+        var total = this.SIDE_NUM * this.SIDE_NUM
+        var rand_n = Math.floor(Math.random() * total)
+        cc.log("enemy_new_n ", rand_n)
+        
+        var breakFlag = false
+        for (var j = 0; j < total; j++) {
+            breakFlag = false
+            for (var i = 0; i < this.bodys.length - 1; i++) {
+                if(this.bodys[i].getN() == rand_n%total){
+                    rand_n += 1
+                    breakFlag = true
+                    break
+                }
+            }
+        }
+        // 这里表示已经没有空位置了
+        if(breakFlag){
+            return -1
+        }
+        return rand_n
     },
 });

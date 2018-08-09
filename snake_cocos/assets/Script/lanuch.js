@@ -2,40 +2,40 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        label: {
-            default: null,
-            type: cc.Label
-        },
         rankdisplay: cc.Sprite,
         // defaults, set visually when attaching this script to the Canvas
     },
 
     start(){
-        this._isShow = true;
         this.tex = new cc.Texture2D();
     },
-    // use this for initialization
-    onLoad: function () {
-        this.label.string = this.text;
+
+    hideRank(){
+        this.node.active = false
     },
 
-    onClick () {
-        this._isShow = !this._isShow;
-        // 发消息给子域
-        wx.postMessage({
-            message: this._isShow ? 'Show' : 'Hide'
-        })
+    showFriendRank(){
+        this.node.active = true
+
+        if (CC_WECHATGAME) {
+            // 发消息给子域
+            window.wx.postMessage({
+                messageType: 1,
+                MAIN_MENU_NUM: "x1"
+            });
+        } else {
+            cc.log("获取好友排行榜数据。x1");
+        }
     },
 
     _updaetSubDomainCanvas () {
-        if (!this.tex) {
-            return;
+        if (window.sharedCanvas != undefined) {
+            var openDataContext = wx.getOpenDataContext();
+            var sharedCanvas = openDataContext.canvas;
+            this.tex.initWithElement(sharedCanvas);
+            this.tex.handleLoadedTexture();
+            this.rankdisplay.spriteFrame = new cc.SpriteFrame(this.tex);
         }
-        var openDataContext = wx.getOpenDataContext();
-        var sharedCanvas = openDataContext.canvas;
-        this.tex.initWithElement(sharedCanvas);
-        this.tex.handleLoadedTexture();
-        this.display.spriteFrame = new cc.SpriteFrame(this.tex);
     },
 
     update () {

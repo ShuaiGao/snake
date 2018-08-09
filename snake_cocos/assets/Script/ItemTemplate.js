@@ -30,7 +30,9 @@ cc.Class({
         id: cc.Label,
         avatar: cc.Sprite,
         playername: cc.Label,
-        score: cc.Label
+        score: cc.Label,
+        avateUrl: "",
+        loadAvatar:false,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -38,15 +40,37 @@ cc.Class({
     // onLoad () {},
 
     start () {
-
+        
     },
 
-    // update (dt) {},
+    // update () {
+    // },
+    setAvatarUrl(avateUrl){
+        this.avateUrl = avateUrl;
+        var self = this
+        cc.loader.load({url: avateUrl, type: 'png'}, function (err, tex) {
+            if (err) {
+                    cc.error('load img error:' + err);
+                    return;
+            } else {
+                cc.error('load img succ:' + err);
+                self.loadAvatar = true
+                self.avatar.spriteFrame = new cc.SpriteFrame(tex);
+                    // this.avatar.type = cc.Sprite.Type.SIMPLE;
+                    // this.avatar.sizeMode = cc.Sprite.SizeMode.CUSTOM;
+                //再次设置node的Size
+                    // courseMainNode.width = parentNode.width;
+                    // courseMainNode.height = parentNode.height;
+        
+            }
+        });
+    },
     // data: {id,avatar,name,score}
     init: function (data) {
         this.id.string = data.id;
-        this.avatar.sprite = data.avatar;
         this.playername.string = data.playername;
         this.score.string = data.score;
+    //     if(data.avatar)
+    //         this.avatar.spite = data.avatar;
     }
 });
