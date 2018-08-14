@@ -123,7 +123,7 @@ cc.Class({
         //检查是否撞到敌人，是否撞自己；向前移动
         if (head_n == enemy_n)
         {
-            this.bodys.push(this.swapnBody(head_n).getComponent("body"))    
+            // this.bodys.push(this.swapnBody(head_n).getComponent("body"))    
             // console.log("enemy_new_n 111" )
             // var enemy_new_n = this.randEnemyPos()
             // console.log("enemy_new_n ", enemy_new_n)
@@ -149,7 +149,10 @@ cc.Class({
         this.direction_has_changed = false;
         return ret
     },
-
+    addOneBody(){
+        var head_n = this.m_head.getN()
+        this.bodys.push(this.swapnBody(head_n).getComponent("body"))   
+    },
     changeDirection:function(direction){
         // 同方向和反方向，返回
         if((this.direction + direction) % 2 == 0){
@@ -159,7 +162,6 @@ cc.Class({
         if(this.direction_has_changed){
             return false
         }
-        console.log("changeDirection ", this.direction)   
         this.direction = direction
         this.direction_has_changed = true
         return true

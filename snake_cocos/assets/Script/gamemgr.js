@@ -99,6 +99,7 @@ var gamemgr = cc.Class({
             this.gainScore()
             var enemy_new_n = this.randEnemyPos()
             this.enemy.setN(enemy_new_n, 20)
+            this.player.addOneBody()
         }
     },
 

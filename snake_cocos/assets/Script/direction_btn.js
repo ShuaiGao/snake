@@ -41,12 +41,32 @@ cc.Class({
 
     onLoad () {
         var self = this
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN,this.keyDown,this);
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             // console.log("diectionChange", self.direction)
             self.game_mgr.directionChange(self.direction)
             // console.log("TOUCH_START")
         });
+
+        if(!CC_WECHATGAME){
+            //键盘按下事件
+            cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN,function(event){
+                // 在非主线程执行   
+                switch(event.keyCode){
+                    case cc.KEY.a:
+                        this.game_mgr.directionChange(com.LEFT_DIRECTION)
+                        break
+                    case cc.KEY.w:
+                        this.game_mgr.directionChange(com.UP_DIRECTION)
+                        break
+                    case cc.KEY.d:
+                        this.game_mgr.directionChange(com.RIGHT_DIRECTION)
+                        break
+                    case cc.KEY.s:
+                        this.game_mgr.directionChange(com.DOWN_DIRECTION)
+                        break
+                }  
+            },this);
+        }
     },
 
     start () {
@@ -54,29 +74,4 @@ cc.Class({
     },
 
     // update (dt) {},
-
-    clickBtn: function(){
-    //    console.log("diectionChange", this.direction)
-    //    this.game_mgr.directionChange(this.direction)
-    },
-
-    //键盘按下事件
-    keyDown(event)
-    {
-        // 在非主线程执行   
-        switch(event.keyCode){
-            case cc.KEY.a:
-                this.game_mgr.directionChange(com.LEFT_DIRECTION)
-                break
-            case cc.KEY.w:
-                this.game_mgr.directionChange(com.UP_DIRECTION)
-                break
-            case cc.KEY.d:
-                this.game_mgr.directionChange(com.RIGHT_DIRECTION)
-                break
-            case cc.KEY.s:
-                this.game_mgr.directionChange(com.DOWN_DIRECTION)
-                break
-        }        
-    }
 });
