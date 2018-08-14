@@ -126,10 +126,14 @@ var gamemgr = cc.Class({
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
     directionChange: function(n){
+        if(this.dead)
+        { return }
         // console.log("directionChange ", n)
         // this.gainScore()
-        this.player.changeDirection(n)
-        this.step = this.speed - 1
+        if(this.player.changeDirection(n))
+        {
+            this.step = this.speed - 1
+        }
     },
 
     randEnemyPos:function(){

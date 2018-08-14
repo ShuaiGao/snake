@@ -40,7 +40,13 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
+        var self = this
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN,this.keyDown,this);
+        self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
+            // console.log("diectionChange", self.direction)
+            self.game_mgr.directionChange(self.direction)
+            // console.log("TOUCH_START")
+        });
     },
 
     start () {
@@ -50,8 +56,8 @@ cc.Class({
     // update (dt) {},
 
     clickBtn: function(){
-       console.log("diectionChange", this.direction)
-       this.game_mgr.directionChange(this.direction)
+    //    console.log("diectionChange", this.direction)
+    //    this.game_mgr.directionChange(this.direction)
     },
 
     //键盘按下事件

@@ -153,15 +153,16 @@ cc.Class({
     changeDirection:function(direction){
         // 同方向和反方向，返回
         if((this.direction + direction) % 2 == 0){
-            return
+            return false
         }
         // 已经转向但是还没移动返回
         if(this.direction_has_changed){
-            return
+            return false
         }
         console.log("changeDirection ", this.direction)   
         this.direction = direction
         this.direction_has_changed = true
+        return true
     },
     start () {
         // var windowSize=cc.winSize;//推荐  原因  短  
