@@ -18,9 +18,9 @@ cc.Class({
         let nick = data.nickname;
         let grade = data.KVDataList.length != 0 ? data.KVDataList[0].value : 0;
 
-        if (rank % 2 == 0) {
-            this.backSprite.color = new cc.Color(55, 55, 55, 255);
-        }
+        // if (rank % 2 == 0) {
+        //     this.backSprite.color = new cc.Color(55, 55, 55, 255);
+        // }
 
         if (rank == 0) {
             this.rankLabel.node.color = new cc.Color(255, 0, 0, 255);

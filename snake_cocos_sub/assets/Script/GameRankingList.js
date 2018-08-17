@@ -4,7 +4,7 @@ cc.Class({
     properties: {
         rankingScrollView: cc.ScrollView,
         scrollViewContent: cc.Node,
-        prefabRankItem: cc.Prefab,
+        prefabRankItem:[cc.Prefab],
         prefabGameOverRank: cc.Prefab,
         gameOverRankLayout: cc.Node,
         loadingLabel: cc.Node,//加载文字
@@ -75,7 +75,7 @@ cc.Class({
         this.scrollViewContent.removeAllChildren();
         this.gameOverRankLayout.active = false;
         this.gameOverRankLayout.removeAllChildren();
-        this.loadingLabel.getComponent(cc.Label).string = "玩命加载中...";
+        this.loadingLabel.getComponent(cc.Label).string = "... ...";
         this.loadingLabel.active = true;
     },
     fetchFriendData(MAIN_MENU_NUM) {
@@ -108,11 +108,11 @@ cc.Class({
                             });
                             for (let i = 0; i < data.length; i++) {
                                 var playerInfo = data[i];
-                                var item = cc.instantiate(this.prefabRankItem);
+                                var item = cc.instantiate(this.prefabRankItem[i%2]);
                                 item.getComponent('RankItem').init(i, playerInfo);
                                 this.scrollViewContent.addChild(item);
                                 if (data[i].avatarUrl == userData.avatarUrl) {
-                                    let userItem = cc.instantiate(this.prefabRankItem);
+                                    let userItem = cc.instantiate(this.prefabRankItem[i%2]);
                                     userItem.getComponent('RankItem').init(i, playerInfo);
                                     userItem.y = -354;
                                     this.node.addChild(userItem, 1, 1000);
