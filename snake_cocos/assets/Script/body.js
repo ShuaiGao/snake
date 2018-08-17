@@ -51,18 +51,6 @@ var body = cc.Class({
         // },
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
-    onLoad () {
-        // this.n = n
-        // this.x = n * this.width
-        // this.y = n * this.width
-    },
-
-    start () {
-    	console.log("body " ,1111111111)
-    },
-
     // update (dt) {},
 
     setN:function(n, SIDE_NUM){

@@ -40,9 +40,7 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        console.log("enemy init ")
         this.setN(this.n, this.SIDE_NUM)
-        console.log("enemy init 111")
     },
 
     // start () {
@@ -53,7 +51,7 @@ cc.Class({
     // update (dt) {},
 
     initPos:function(n){
-        console.log("enemy init ", n)
+        // console.log("enemy init ", n)
         this.setN(n)
     },
     setN:function(n, SIDE_NUM){

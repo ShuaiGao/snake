@@ -3,6 +3,7 @@ cc.Class({
 
     properties: {
         rankdisplay: cc.Sprite,
+        bk: cc.Node,
         // defaults, set visually when attaching this script to the Canvas
     },
 
