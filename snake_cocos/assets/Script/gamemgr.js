@@ -74,6 +74,10 @@ var gamemgr = cc.Class({
         if(this.step % this.speed != 0){
             return
         }
+        this.move()
+    },
+
+    move:function(){
         const ret = this.player.move(this.enemy.n)
         if(ret == -1){
             this.dead = true
@@ -84,6 +88,7 @@ var gamemgr = cc.Class({
             this.enemy.setN(enemy_new_n)
             this.player.addOneBody()
         }
+        this.step = 0
     },
 
     gameOver:function(score){
@@ -116,7 +121,8 @@ var gamemgr = cc.Class({
         // this.gainScore()
         if(this.player.changeDirection(n))
         {
-            this.step = this.speed - 1
+            // this.step = this.speed - 1
+            this.move()
         }
     },
 
@@ -141,10 +147,6 @@ var gamemgr = cc.Class({
             return -1
         }
         return rand_n
-    },
-
-    restart:function(){
-
     },
 });
 
