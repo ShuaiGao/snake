@@ -9,12 +9,13 @@
 //  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
 import player from "player"
 import enemy from "enemy"
+var com = require("common");
 var varr = require("Globals");
 var gamemgr = cc.Class({
     extends: cc.Component,
 
     properties: {
-        width:20,
+        width:18,
         body_width:20,
         score: 0,
 
@@ -80,7 +81,7 @@ var gamemgr = cc.Class({
         }else if(ret == 1){
             this.gainScore()
             var enemy_new_n = this.randEnemyPos()
-            this.enemy.setN(enemy_new_n, 20)
+            this.enemy.setN(enemy_new_n)
             this.player.addOneBody()
         }
     },
@@ -120,7 +121,7 @@ var gamemgr = cc.Class({
     },
 
     randEnemyPos:function(){
-        var total = this.player.SIDE_NUM * this.player.SIDE_NUM
+        var total = com.WIDTH_NUM * com.HIGHT_NUM
         var rand_n = Math.floor(Math.random() * total)
         cc.log("enemy_new_n ", rand_n)
         
@@ -144,7 +145,7 @@ var gamemgr = cc.Class({
 
     restart:function(){
 
-    }
+    },
 });
 
 

@@ -29,34 +29,17 @@
 //     // ctx.drawImage(atlas, this.img_index * 20, 0, 20, 20, this.x, this.y, this.width, this.height)
 //   }
 // }
+var com = require("common");
 var body = cc.Class({
     extends: cc.Component,
 
     properties: {
-        // n:0,
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
     },
 
-    // update (dt) {},
-
-    setN:function(n, SIDE_NUM){
+    setN:function(n){
         this.n = n
-        this.node.x = (n%SIDE_NUM) * this.node.width + this.node.width/2
-        this.node.y = -Math.floor(n/SIDE_NUM)* this.node.height - this.node.height/2
+        this.node.x = (n % com.WIDTH_NUM) * this.node.width + this.node.width/2
+        this.node.y = -Math.floor(n/com.HIGHT_NUM)* this.node.height - this.node.height/2
     },
     getN:function(){
     	return this.n

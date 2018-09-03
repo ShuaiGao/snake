@@ -15,24 +15,8 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
         // 移动 方向
         direction: 3,
-        SIDE_NUM: 20,
         body_len:3,
         bodyPrefab:{
             default: null,
@@ -56,30 +40,30 @@ cc.Class({
             default:[],
             type:[body]
         },
-        header_n:44,
+        header_n:40,
         speed:20,
         step:{
             default:0,
             visible:false
         },
-        direction_has_changed:false
+        
     },
 
     
     onLoad () {
-        for (var i = 1; i <= this.body_len; i++) {
+        this.direction_has_changed = false
+        this.total = com.WHDTH_NUM * com.HIGHT_NUM
+        for (var i = 0; i < this.body_len; i++) {
             // 使用给定的模板在场景中生成一个新节点
             // var body_x = this.bodyPrefab.width * (n%this.SIDE_NUM) + this.bodyPrefab.width/2;
             // var body_y = -Math.floor(n/this.SIDE_NUM)* this.bodyPrefab.height - this.bodyPrefab.height/2;
-            var newBody = this.swapnBody(this.header_n+i);
+            var newBody = this.swapnBody(this.header_n + i);
             this.bodys.push(newBody.getComponent("body"));
             // 为星星设置一个随机位置
-            
             // this.gamemgr.gainScore()
-            if(i == this.body_len){
-                this.m_head = this.swapnBody(this.header_n+i).getComponent("body");
-            }
         }
+        this.header_n = this.header_n + this.body_len - 1
+        this.m_head = this.swapnBody(this.header_n).getComponent("body");
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -88,7 +72,7 @@ cc.Class({
         // 将新增的节点添加到 Canvas 节点下面
         this.node.addChild(newBody);
         // console.log("sqapnBody ", type(newBody))
-        newBody.getComponent("body").setN(n, this.SIDE_NUM);
+        newBody.getComponent("body").setN(n);
         return newBody;
     },
     move:function(enemy_n){
@@ -98,27 +82,27 @@ cc.Class({
         var ret = 0
         var head_n = this.m_head.getN()
         if (this.direction == com.UP_DIRECTION) {
-            if(Math.floor(head_n/this.SIDE_NUM) == 0){ //撞墙了
+            if(Math.floor(head_n/com.HIGHT_NUM) == 0){ //撞墙了
                 return -1
             }
-            head_n -= this.SIDE_NUM            
+            head_n -= com.WIDTH_NUM            
         } else if (this.direction == com.DOWN_DIRECTION) {
-            if(Math.ceil(head_n/this.SIDE_NUM) == this.SIDE_NUM){//撞墙了
+            if(Math.ceil(head_n/com.HIGHT_NUM) == com.HIGHT_NUM){//撞墙了
                 return -1
             }
-            head_n += this.SIDE_NUM
+            head_n += com.WIDTH_NUM 
         } else if (this.direction == com.LEFT_DIRECTION) {
-            if(head_n%this.SIDE_NUM == 0){ //撞墙了
+            if(head_n%com.WIDTH_NUM == 0){ //撞墙了
                 return -1
             }
             head_n -= 1
         } else if (this.direction == com.RIGHT_DIRECTION) {
-            if((head_n+1)%this.SIDE_NUM == 0){ //撞墙了
+            if((head_n+1) % com.WIDTH_NUM == 0){ //撞墙了
                 return -1
             }
             head_n += 1
         }
-        this.m_head.setN(head_n, this.SIDE_NUM)
+        this.m_head.setN(head_n)
         
         //检查是否撞到敌人，是否撞自己；向前移动
         if (head_n == enemy_n)
@@ -133,7 +117,7 @@ cc.Class({
         }
         else{
             //撞自己，死了
-            for (var i = this.bodys.length - 2; i > 2; i--) {
+            for (var i = this.bodys.length - 2; i > 0; i--) {
               if (head_n == this.bodys[i].n){
                 ret = -1
                 break
@@ -141,9 +125,9 @@ cc.Class({
             }
             if(ret != -1){
                 for (var i = 0; i < this.bodys.length - 1; i++) {
-                    this.bodys[i].setN(this.bodys[i+1].getN(), this.SIDE_NUM)
+                    this.bodys[i].setN(this.bodys[i+1].getN())
                 }
-                this.bodys[this.bodys.length-1].setN(head_n, this.SIDE_NUM)
+                this.bodys[this.bodys.length-1].setN(head_n)
             }
         }
         this.direction_has_changed = false;
@@ -199,15 +183,14 @@ cc.Class({
         // }
     },
     randEnemyPos:function(){
-        var total = this.SIDE_NUM * this.SIDE_NUM
-        var rand_n = Math.floor(Math.random() * total)
+        var rand_n = Math.floor(Math.random() * this.total)
         cc.log("enemy_new_n ", rand_n)
         
         var breakFlag = false
-        for (var j = 0; j < total; j++) {
+        for (var j = 0; j < this.total; j++) {
             breakFlag = false
             for (var i = 0; i < this.bodys.length - 1; i++) {
-                if(this.bodys[i].getN() == rand_n%total){
+                if(this.bodys[i].getN() == rand_n%this.total){
                     rand_n += 1
                     breakFlag = true
                     break
@@ -220,4 +203,7 @@ cc.Class({
         }
         return rand_n
     },
+    getN(){
+        return this.m_head.getN()
+    }
 });

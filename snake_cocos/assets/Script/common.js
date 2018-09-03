@@ -13,6 +13,8 @@ var com={
         UP_DIRECTION: 2,
         RIGHT_DIRECTION: 3,
         DOWN_DIRECTION: 4,
+        WIDTH_NUM: 18,
+        HIGHT_NUM: 18,
 
         load:function() {
             // body...
