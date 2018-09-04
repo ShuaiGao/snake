@@ -134,7 +134,10 @@ var gamemgr = cc.Class({
         var breakFlag = false
         for (var j = 0; j < total; j++) {
             breakFlag = false
-            for (var i = 0; i < this.player.bodys.length - 1; i++) {
+            if(this.enemy.getN() == rand_n %total){
+                continue;
+            }
+            for (var i = 0; i < this.player.bodys.length; i++) {
                 if(this.player.bodys[i].getN() == rand_n%total){
                     rand_n += 1
                     breakFlag = true
