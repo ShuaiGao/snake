@@ -138,12 +138,12 @@ cc.Class({
         this.bodys.push(this.swapnBody(head_n).getComponent("body"))   
     },
     changeDirection:function(direction){
-        // 同方向和反方向，返回
-        if((this.direction + direction) % 2 == 0){
-            return false
-        }
         // 已经转向但是还没移动返回
         if(this.direction_has_changed){
+            return false
+        }
+        // 同方向加速，反方向返回
+        if((this.direction + direction) % 2 == 0 && this.direction != direction){
             return false
         }
         this.direction = direction

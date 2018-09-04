@@ -109,20 +109,26 @@ var gamemgr = cc.Class({
     gainScore: function () {
         this.score += 1;
         // 更新 scoreDisplay Label 的文字
-        this.scoreDisplay.string = "得分 " + this.score
+        this.scoreDisplay.string = this.score
         // this.score.toString();
         // 播放得分音效
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
-    directionChange: function(n){
+    directionChange: function(n, pType = 0){
         if(this.dead)
         { return }
-        // console.log("directionChange ", n)
+        console.log("directionChange ", n)
         // this.gainScore()
         if(this.player.changeDirection(n))
         {
-            // this.step = this.speed - 1
-            this.move()
+            if(pType == 1)
+            {
+                this.step = this.speed - 1
+            }
+            else
+            {
+                this.move()
+            }
         }
     },
 
