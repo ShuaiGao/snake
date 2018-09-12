@@ -22,11 +22,6 @@ cc.Class({
     },
 
     onLoad () {
-        this.downFlag = new Map()
-        this.downFlag.set(cc.KEY.a, true)
-        this.downFlag.set(cc.KEY.w, true)
-        this.downFlag.set(cc.KEY.s, true)
-        this.downFlag.set(cc.KEY.d, true)
         var self = this
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
             // console.log("diectionChange", self.direction)
