@@ -234,7 +234,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "d844cdda-9b4d-4d2a-ae13-37df1e7b5606"
+      "__uuid__": "0ea7c928-5a4b-486b-975c-04e0f5f4494c"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -331,7 +331,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "name",
+    "_name": "New Sprite",
     "_objFlags": 0,
     "_parent": {
       "__id__": 3
@@ -345,13 +345,13 @@
       }
     ],
     "_prefab": null,
-    "_id": "31f1bH7V69Ajr1iXhluMpTB",
+    "_id": "138eoFO/lLe5uxANeGmClo",
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 240,
-      "g": 8,
-      "b": 101,
+      "r": 255,
+      "g": 255,
+      "b": 255,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -362,17 +362,17 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 240,
-      "height": 60
+      "width": 425,
+      "height": 105
     },
     "_rotationX": 0,
     "_rotationY": 0,
-    "_scaleX": 1,
-    "_scaleY": 1,
+    "_scaleX": 0.8,
+    "_scaleY": 0.8,
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 209
+      "y": 226
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -382,26 +382,30 @@
     "groupIndex": 0
   },
   {
-    "__type__": "cc.Label",
+    "__type__": "cc.Sprite",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 8
     },
     "_enabled": true,
-    "_useOriginalSize": false,
-    "_actualFontSize": 60,
-    "_fontSize": 60,
-    "_lineHeight": 60,
-    "_enableWrapText": true,
-    "_N$file": null,
-    "_isSystemFontUsed": true,
-    "_spacingX": 0,
-    "_N$string": "贪吃小蛇",
-    "_N$horizontalAlign": 1,
-    "_N$verticalAlign": 1,
-    "_N$fontFamily": "Arial",
-    "_N$overflow": 0
+    "_spriteFrame": {
+      "__uuid__": "2f1f7a18-9911-434c-b557-7acc16a494b6"
+    },
+    "_type": 0,
+    "_sizeMode": 1,
+    "_fillType": 0,
+    "_fillCenter": {
+      "__type__": "cc.Vec2",
+      "x": 0,
+      "y": 0
+    },
+    "_fillStart": 0,
+    "_fillRange": 0,
+    "_isTrimmedMode": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_atlas": null
   },
   {
     "__type__": "cc.Node",
@@ -1369,7 +1373,7 @@
       }
     ],
     "_tag": -1,
-    "_active": true,
+    "_active": false,
     "_components": [
       {
         "__id__": 39

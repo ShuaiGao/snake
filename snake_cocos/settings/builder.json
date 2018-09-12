@@ -11,7 +11,7 @@
   "inlineSpriteFrames": true,
   "inlineSpriteFrames_native": false,
   "jailbreakPlatform": false,
-  "md5Cache": false,
+  "md5Cache": true,
   "mergeStartScene": false,
   "oauthLoginServer": "",
   "optimizeHotUpdate": true,
