@@ -44,7 +44,7 @@ cc.Class({
                 return {
                 title:'这一局我得了'+varr.score+"分，你能超过我吗？",
                 imageUrl: canvas.toTempFilePathSync({
-                    destWidth: 500,
+                    destWidth: 300,
                     destHeight: 400
                 })
                 }

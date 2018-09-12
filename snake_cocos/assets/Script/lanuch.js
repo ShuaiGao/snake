@@ -12,9 +12,9 @@ cc.Class({
             wx.showShareMenu();
             wx.onShareAppMessage(function () {
             return {
-                title: '这游戏可得劲了，快来玩吧',
+                title: '这游戏可带劲儿了，快来玩吧',
                 imageUrl: canvas.toTempFilePathSync({
-                destWidth: 500,
+                destWidth: 300,
                 destHeight: 400
                 })
             }

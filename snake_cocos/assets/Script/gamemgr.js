@@ -71,7 +71,7 @@ var gamemgr = cc.Class({
                 return {
                 title: '我是一只贪吃蛇，贼开心',
                 imageUrl: canvas.toTempFilePathSync({
-                    destWidth: 500,
+                    destWidth: 300,
                     destHeight: 400
                 })
                 }
