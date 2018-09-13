@@ -13,11 +13,10 @@ var com={
         UP_DIRECTION: 2,
         RIGHT_DIRECTION: 3,
         DOWN_DIRECTION: 4,
-        WIDTH_NUM: 18,
-        HIGHT_NUM: 18,
+        WIDTH_NUM: 12,
+        HIGHT_NUM: 12,
 
         load:function() {
-            // body...
         }
 };
 com.load();

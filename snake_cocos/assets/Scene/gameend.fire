@@ -167,7 +167,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "d844cdda-9b4d-4d2a-ae13-37df1e7b5606"
+      "__uuid__": "0ea7c928-5a4b-486b-975c-04e0f5f4494c"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -273,12 +273,12 @@
       "__id__": 8
     },
     "_id": "96nJ+EoStLKax1v609dfVy",
-    "_opacity": 255,
+    "_opacity": 134,
     "_color": {
       "__type__": "cc.Color",
-      "r": 71,
-      "g": 63,
-      "b": 63,
+      "r": 178,
+      "g": 233,
+      "b": 218,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -378,8 +378,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 400,
-      "height": 340
+      "width": 390,
+      "height": 230
     },
     "_rotationX": 0,
     "_rotationY": 0,
@@ -388,7 +388,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": 0
+      "y": -33
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -406,7 +406,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "d94a1676-0be6-4b06-89fe-ebd96a31a0dc"
+      "__uuid__": "f9a89acf-435a-4fec-a668-34d64cc43141"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -629,9 +629,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 255,
-      "g": 255,
-      "b": 255,
+      "r": 224,
+      "g": 52,
+      "b": 9,
       "a": 255
     },
     "_cascadeOpacityEnabled": true,
@@ -825,10 +825,18 @@
     "_N$normalSprite": {
       "__uuid__": "e105fd56-6709-41c3-a499-226334a27943"
     },
-    "_N$pressedSprite": null,
-    "pressedSprite": null,
-    "_N$hoverSprite": null,
-    "hoverSprite": null,
+    "_N$pressedSprite": {
+      "__uuid__": "e105fd56-6709-41c3-a499-226334a27943"
+    },
+    "pressedSprite": {
+      "__uuid__": "e105fd56-6709-41c3-a499-226334a27943"
+    },
+    "_N$hoverSprite": {
+      "__uuid__": "e105fd56-6709-41c3-a499-226334a27943"
+    },
+    "hoverSprite": {
+      "__uuid__": "e105fd56-6709-41c3-a499-226334a27943"
+    },
     "_N$disabledSprite": {
       "__uuid__": "29158224-f8dd-4661-a796-1ffab537140e"
     },

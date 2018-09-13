@@ -13,22 +13,6 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
-        
         direction: 0,
         // 暂存 Game 对象的引用
         game_mgr: {
@@ -37,8 +21,6 @@ cc.Class({
         }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
     onLoad () {
         var self = this
         self.node.on(cc.Node.EventType.TOUCH_START, function (event) {
@@ -46,32 +28,28 @@ cc.Class({
             self.game_mgr.directionChange(self.direction)
             // console.log("TOUCH_START")
         });
-
         if(!CC_WECHATGAME){
             //键盘按下事件
             cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN,function(event){
                 // 在非主线程执行   
                 switch(event.keyCode){
                     case cc.KEY.a:
-                        this.game_mgr.directionChange(com.LEFT_DIRECTION)
+                        this.game_mgr.directionChange(com.LEFT_DIRECTION,1)
                         break
                     case cc.KEY.w:
-                        this.game_mgr.directionChange(com.UP_DIRECTION)
+                        this.game_mgr.directionChange(com.UP_DIRECTION,1)
                         break
                     case cc.KEY.d:
-                        this.game_mgr.directionChange(com.RIGHT_DIRECTION)
+                        this.game_mgr.directionChange(com.RIGHT_DIRECTION,1)
                         break
                     case cc.KEY.s:
-                        this.game_mgr.directionChange(com.DOWN_DIRECTION)
+                        this.game_mgr.directionChange(com.DOWN_DIRECTION,1)
                         break
-                }  
+                }
+                
             },this);
         }
     },
 
-    start () {
 
-    },
-
-    // update (dt) {},
 });

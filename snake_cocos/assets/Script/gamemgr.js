@@ -49,6 +49,11 @@ var gamemgr = cc.Class({
             default: null,
             url: cc.AudioClip
         },
+        // 死亡音效
+        gameoverAudio: {
+            default: null,
+            url: cc.AudioClip
+        },
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -60,7 +65,18 @@ var gamemgr = cc.Class({
         // 生成一个新的星星
         // this.spawnNewEnemy();
         // this.spawnNewSnake();
-        
+        if(CC_WECHATGAME){
+            wx.showShareMenu();
+            wx.onShareAppMessage(function () {
+                return {
+                title: '我是一只贪吃蛇，贼开心',
+                imageUrl: canvas.toTempFilePathSync({
+                    destWidth: 300,
+                    destHeight: 400
+                })
+                }
+            })
+        }
     },
 
     start () {
@@ -93,7 +109,12 @@ var gamemgr = cc.Class({
 
     gameOver:function(score){
         varr.score = score
-        cc.director.loadScene("gameend")
+        cc.audioEngine.playEffect(this.gameoverAudio, false);
+        setTimeout(function(){
+            cc.director.loadScene("gameend")
+        },3100)
+
+        
         // 提交得分
         if (CC_WECHATGAME) {
             window.wx.postMessage({
@@ -109,32 +130,41 @@ var gamemgr = cc.Class({
     gainScore: function () {
         this.score += 1;
         // 更新 scoreDisplay Label 的文字
-        this.scoreDisplay.string = "得分 " + this.score
+        this.scoreDisplay.string = this.score
         // this.score.toString();
         // 播放得分音效
         cc.audioEngine.playEffect(this.scoreAudio, false);
     },
-    directionChange: function(n){
+    directionChange: function(n, pType = 0){
         if(this.dead)
         { return }
-        // console.log("directionChange ", n)
         // this.gainScore()
         if(this.player.changeDirection(n))
         {
-            // this.step = this.speed - 1
-            this.move()
+            if(pType == 1)
+            {
+                this.step = this.speed - 2
+            }
+            else
+            {
+                this.step = this.speed - 2
+                // this.move()
+            }
         }
     },
 
     randEnemyPos:function(){
         var total = com.WIDTH_NUM * com.HIGHT_NUM
         var rand_n = Math.floor(Math.random() * total)
-        cc.log("enemy_new_n ", rand_n)
         
         var breakFlag = false
         for (var j = 0; j < total; j++) {
             breakFlag = false
-            for (var i = 0; i < this.player.bodys.length - 1; i++) {
+            if(this.enemy.getN() == rand_n %total){
+                rand_n += 1
+                continue;
+            }
+            for (var i = 0; i < this.player.bodys.length; i++) {
                 if(this.player.bodys[i].getN() == rand_n%total){
                     rand_n += 1
                     breakFlag = true

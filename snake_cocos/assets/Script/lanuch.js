@@ -7,6 +7,21 @@ cc.Class({
         // defaults, set visually when attaching this script to the Canvas
     },
 
+    onLoad() {
+        if(CC_WECHATGAME){
+            wx.showShareMenu();
+            wx.onShareAppMessage(function () {
+            return {
+                title: '这游戏可带劲儿了，快来玩吧',
+                imageUrl: canvas.toTempFilePathSync({
+                destWidth: 300,
+                destHeight: 400
+                })
+            }
+            })
+        }
+      },
+
     start(){
         this.tex = new cc.Texture2D();
     },
