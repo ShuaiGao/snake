@@ -46,13 +46,13 @@ var gamemgr = cc.Class({
         dead:false,
         // 跳跃音效资源
         scoreAudio: {
+            type: cc.AudioClip,
             default: null,
-            url: cc.AudioClip
         },
         // 死亡音效
         gameoverAudio: {
+            type: cc.AudioClip,
             default: null,
-            url: cc.AudioClip
         },
     },
 
