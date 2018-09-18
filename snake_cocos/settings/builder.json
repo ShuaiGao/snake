@@ -2,9 +2,7 @@
   "appKey": "",
   "appSecret": "",
   "encryptJs": true,
-  "excludeScenes": [
-    "afb712d5-ff8a-42c4-bd5b-b04d66f830e5"
-  ],
+  "excludeScenes": [],
   "fb-instant-games": {},
   "includeAnySDK": false,
   "includeSDKBox": false,
@@ -32,11 +30,11 @@
   "title": "snake",
   "webOrientation": "auto",
   "wechatgame": {
-    "REMOTE_SERVER_ROOT": "",
+    "REMOTE_SERVER_ROOT": "https://lg-52st4dgi-1257601857.cos.ap-shanghai.myqcloud.com",
     "appid": "wxf180847d73bd8403",
     "isSubdomain": false,
     "orientation": "portrait",
-    "subContext": "sub"
+    "subContext": ""
   },
   "xxteaKey": "77d90a7f-5a51-4c",
   "zipCompressJs": true

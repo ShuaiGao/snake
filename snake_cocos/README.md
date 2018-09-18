@@ -1,1 +1,2 @@
-# snake cocos project
+# hello-world
+Hello world new project template.

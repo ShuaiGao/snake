@@ -87,3 +87,5 @@ cc.Class({
         this._updateSubDomainCanvas();
     },
 });
+
+// https://lg-52st4dgi-1257601857.cos.ap-shanghai.myqcloud.com/weapp/
