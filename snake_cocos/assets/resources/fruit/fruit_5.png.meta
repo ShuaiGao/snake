@@ -7,7 +7,11 @@
   "subMetas": {
     "fruit_5": {
       "ver": "1.0.3",
+<<<<<<< HEAD
       "uuid": "0ea5f1f1-3984-4b7f-8eef-9237eb893b5c",
+=======
+      "uuid": "5c87e1c1-8705-466e-b310-9987fd798c61",
+>>>>>>> 31e1f8ed6a0948b0ba2b89871b0aed85377efffc
       "rawTextureUuid": "8cfc930a-37dc-47cd-a802-7b9895a1440d",
       "trimType": "auto",
       "trimThreshold": 1,

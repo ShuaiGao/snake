@@ -7,7 +7,11 @@
   "subMetas": {
     "fruit_14": {
       "ver": "1.0.3",
+<<<<<<< HEAD
       "uuid": "41ef0bf1-723e-4d89-9ec8-03e60a013d68",
+=======
+      "uuid": "afbb5261-0c57-4bb2-aa1b-5fdd98143e00",
+>>>>>>> 31e1f8ed6a0948b0ba2b89871b0aed85377efffc
       "rawTextureUuid": "6823295f-c0cb-4bfc-af39-94f59e578bf9",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -16,10 +20,17 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
+<<<<<<< HEAD
       "width": 134,
       "height": 144,
       "rawWidth": 134,
       "rawHeight": 144,
+=======
+      "width": 118,
+      "height": 118,
+      "rawWidth": 118,
+      "rawHeight": 118,
+>>>>>>> 31e1f8ed6a0948b0ba2b89871b0aed85377efffc
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
