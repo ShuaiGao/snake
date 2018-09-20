@@ -87,7 +87,7 @@ cc.Class({
             }
             head_n -= com.WIDTH_NUM            
         } else if (this.direction == com.DOWN_DIRECTION) {
-            if(Math.ceil(head_n/com.HIGHT_NUM) == com.HIGHT_NUM){//撞墙了
+            if(Math.floor(head_n/com.HIGHT_NUM) == com.HIGHT_NUM-1){//撞墙了
                 return -1
             }
             head_n += com.WIDTH_NUM 

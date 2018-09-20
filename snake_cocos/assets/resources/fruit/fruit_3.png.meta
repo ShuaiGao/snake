@@ -7,7 +7,7 @@
   "subMetas": {
     "fruit_3": {
       "ver": "1.0.3",
-      "uuid": "4bbbc697-18fb-4f64-a0fb-36b17e5bb025",
+      "uuid": "bcbf86a9-e67c-4b88-a2a3-be4ad52508a1",
       "rawTextureUuid": "ecf80167-f605-40d7-8bc2-15cf28e19ba7",
       "trimType": "auto",
       "trimThreshold": 1,
@@ -16,10 +16,10 @@
       "offsetY": 0,
       "trimX": 0,
       "trimY": 0,
-      "width": 126,
-      "height": 120,
-      "rawWidth": 126,
-      "rawHeight": 120,
+      "width": 111,
+      "height": 77,
+      "rawWidth": 111,
+      "rawHeight": 77,
       "borderTop": 0,
       "borderBottom": 0,
       "borderLeft": 0,
