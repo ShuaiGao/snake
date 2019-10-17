@@ -45,8 +45,8 @@ class Snake():
     def getTail(self):
         return self.body[0]
     def out(self):
-        print "-"*40
-        print self.aim
+        log("-"*40)
+        log(self.aim)
         for i in self.body:
             print i,",",
         print "\n"
@@ -54,7 +54,8 @@ class Snake():
         return self.aim
 
     def render(self, screen):
-        screen.blit(self.aimImg, (self.aim.x * BODY_WIDTH, self.aim.y * BODY_WIDTH))
+        if self.aim.x != -1 and self.aim.y != -1:
+            screen.blit(self.aimImg, (self.aim.x * BODY_WIDTH, self.aim.y * BODY_WIDTH))
         for i, body in enumerate(self.body):
             if i == 0:
                 screen.blit(self.tailImg, (body.x * BODY_WIDTH, body.y * BODY_WIDTH))
@@ -64,19 +65,21 @@ class Snake():
                 screen.blit(self.img, (body.x * BODY_WIDTH, body.y * BODY_WIDTH))
 
     def moveTo(self, point):
-        print "start move to ", point
+        log("start move to", point) 
         header = self.body[-1]
         if (header.x - point.x)**2 + (header.y - point.y)**2 != 1:
-            print("错误移动点，距离目标点太远", header, point)
+            log("error moveTo, too faraway from aim point. ", header, point)
             return -1
         for i in self.body[1:]:
             if i == point:
-                print "错误移动点", point
+                log("errir moveTo point", point) 
                 return -1
         if point == self.aim:
             self.body.append(copy.deepcopy(point))
-            self.changeAimPos()
-            return 1
+            if not self.changeAimPos():
+                return -2
+            else:
+                return 1
         else:
             self.body.remove(self.body[0])
             self.body.append(copy.deepcopy(point))
@@ -91,8 +94,10 @@ class Snake():
     def changeAimPos(self):
         maxnum = self.width * self.height #- len(self.body)
         if len(self.body) == maxnum:
-            print "游戏结束"
-            return
+            log("GAME OVER. changeAimPos")
+            self.aim.x = -1
+            self.aim.y = -1
+            return False
         n = random.randint(0, maxnum- 1)
         # print "random n", n
         # tmp_n = 0
@@ -127,6 +132,7 @@ class Snake():
             else:
                 self.aim.x = -1
                 self.aim.y = -1
+        return True
 
     #返回按路径行走后的序列
     def tmpMove(self, pointList):

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
 
@@ -28,6 +27,19 @@ snake = Snake(WIDTH, HEIGHT)
 # data =((4,1),(4,0),(5,0) , (5,1) , (5,2), (5,3), (5,4), (5,5), (5,6), (5,7), (5,8), (5,9), (6,9),(7,9))
 data =((5,2) , (6,2), (7,2))
 aim = (2,3)
+
+#aim = (4,8)
+#data =((3,0) , (4,0) , (5,0) , (6,0) , (7,0) , (8,0) , (9,0) , (9,1) , (8,1) , (7,1) , (6,1) , (5,1) , (4,1) , (3,1) , (2,1) , (2,2) , (3,2) , (4,2) , (5,2) , (6,2) , (7,2) , (8,2) , (9,2) , (9,3) , (9,4) , (9,5) , (8,5) , (7,5) , (6,5) , (5,5) , (5,6) , (4,6) , (3,6) , (2,6) , (2,7) , (2,8) , (1,8) , (0,8) , (0,7) , (0,6) , (1,6) , (1,5) , (2,5) , (3,5) , (4,5) , (4,4) , (3,4) , (2,4) , (1,4) , (0,4) , (0,3) , (1,3) , (1,2) , (0,2) , (0,1) )
+
+# aim = (3,3)
+# data =((9,3) , (9,4) , (9,5) , (9,6) , (9,7) , (9,8) , (9,9) , (8,9) , (8,8) , (8,7) , (8,6) , (8,5) , (8,4\
+# ) , (8,3) , (7,3) , (7,4) , (7,5) , (7,6) , (7,7) , (7,8) , (7,9) , (6,9) , (5,9) , (4,9) , (3,9) ,\
+# (2,9) , (1,9) , (0,9) , (0,8) , (0,7) , (0,6) , (0,5) , (0,4) , (0,3) , (0,2) , (0,1) , (0,0) , (1,0\
+# ) , (1,1) , (1,2) , (2,2) , (2,1) , (2,0) , (3,0) , (4,0) , (5,0) , (6,0) , (7,0) , (8,0) , (9,0) ,\
+# (9,1) , (8,1) , (7,1) , (6,1) , (5,1) , (4,1) , (3,1) , (3,2) , (4,2) , (4,3) , (4,4) , (3,4) , (2,4\
+# ) , (2,3) , (1,3) , (1,4) , (1,5) , (1,6) , (1,7) , (1,8) , (2,8) , (3,8) , (4,8) , (5,8) , (6,8) ,\
+# (6,7) , (6,6) , (5,6) , (5,7) , (4,7) , (3,7) , (2,7) , (2,6) , (3,6) , (4,6) , (4,5) , (5,5) , (6,5\
+# ) , (6,4) , (5,4) , (5,3) , (5,2) , (6,2) , (7,2) , (8,2) , (9,2))
 snake.setBody(data, aim)
 start_flag = False
 # Clock对象
@@ -39,6 +51,7 @@ def init():
     pygame.display.update()
 step = 1
 dead = False
+win = False
 point = 0
 SetSize(WIDTH, HEIGHT)
 if __name__ == '__main__':
@@ -59,24 +72,34 @@ if __name__ == '__main__':
                 start_flag = not start_flag
         if not start_flag:
             continue
+        if win:
+            start_flag = False
+            log("Game Over. Win")
+            continue
         if dead:
-            print "死掉了"
+            log("Game Over. Dead")
+            continue
         if not nextPoint:
-            print "找不到路径点"
+            log("Can not find path.")
             # start_flag = False
             continue
-        # start_flag = False
+        
         clock.tick(25)
         screen.fill((255, 100, 100))
         # nextPoint = parhPoints.pop()
 
         retpoint = snake.moveTo(nextPoint)
+        if retpoint == -1:
+            start_flag = False
+        elif retpoint == -2:
+            win = True
         point += retpoint
-        print "得分 ", point
+        log("total point", point)
         snake.out()
         nextPoint = None
         snake.render(screen)
 
         pygame.display.update()
+        # start_flag = False
         #刷新一下画面
 

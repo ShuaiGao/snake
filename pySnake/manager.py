@@ -1,10 +1,10 @@
-#!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
+from common import log
 import random
 import copy
 from snake import Point
-from sys import maxsize
+from sys import maxsize as MAXSIZE
 
 SNAKE_BODY = -3
 NOT_USED = -1
@@ -17,6 +17,8 @@ class Com():
     def setSize(self, w, h):
         self.WIDTH = w
         self.HEIGHT = h
+    def getBoxNum(self):
+        return self.WIDTH * self.HEIGHT
 com = Com()
 
 def getNeighbors(point):
@@ -67,19 +69,36 @@ def VirturalMove(body, aim, dis_data, next_point):
     tmpBody = copy.deepcopy(body)
     headPoint = tmpBody[-1]
     while headPoint != aim:
+        dis_data = getDis(tmpBody, aim)
         #找距离最近的位置
         next_pointList = []
         for point in getNeighbors(headPoint):
             if dis_data[point.y][point.x] > 0 :
                 next_pointList.append(point)
         # random.shuffle(next_pointList)
-        dis = maxsize
+        dis = MAXSIZE
         neighborPoint = None
         for point in next_pointList:
             nowdis = dis_data[point.y][point.x]
-            if nowdis < dis and nowdis > -1:
-                neighborPoint = point
-                dis = nowdis
+            if nowdis <= -1:
+                continue
+            if len(body) > com.getBoxNum() * 4.0 / 5.0:
+                # print("long body ......")
+                # tmpBody.append(point)
+                # tmp_dis_data = getDis(tmpBody, aim)
+                # if IsRechabled(point, tmp_dis_data):
+                if MAXSIZE == dis:
+                    neighborPoint = point
+                    dis = nowdis
+                    # print "dis ", dis, nowdis
+                if nowdis > dis:
+                    neighborPoint = point
+                    dis = nowdis
+                # tmpBody.pop()
+            else:
+                if nowdis < dis:
+                    neighborPoint = point
+                    dis = nowdis
 
         # for i in tmpBody: print i,
         # print "\n"
@@ -97,7 +116,7 @@ def VirturalMove(body, aim, dis_data, next_point):
         headPoint = neighborPoint
 
     if len(tmpBody) != len(body) + 1:
-        print "出错了，虚拟蛇身体长度不对"
+        log("error, virtual body length != body length")
 
     #下面判断虚拟蛇的蛇头能不能到达蛇尾
     tmpDisData = getDis(tmpBody, tmpBody[0])
@@ -113,7 +132,7 @@ def VirturalMove_rand(body, aim, dis_data, next_point):
             if dis_data[point.y][point.x] != SNAKE_BODY and dis_data[point.y][point.x] != NOT_USED:
                 next_pointList.append(point)
         random.shuffle(next_pointList)
-        dis = maxsize
+        dis = MAXSIZE
         neighborPoint = None
         for point in next_pointList:
             nowdis = dis_data[point.y][point.x]
@@ -126,14 +145,14 @@ def VirturalMove_rand(body, aim, dis_data, next_point):
         tmpBody.append(neighborPoint)
 
         if neighborPoint != aim:
-            tmpBoty = tmpBody[1:]
+            tmpBody = tmpBody[1:]
         if body[-1] == headPoint:
             next_point.x = neighborPoint.x
             next_point.y = neighborPoint.y
         headPoint = neighborPoint
 
     if len(tmpBody) != len(body) + 1:
-        print "出错了，虚拟蛇身体长度不对"
+        log("error, virtual body len({}) != body len({}) + 1".format(len(tmpBody), len(body) + 1))
 
     #下面判断虚拟蛇的蛇头能不能到达蛇尾
     tmpDisData = getDis(tmpBody, tmpBody[0])
@@ -150,7 +169,7 @@ def DFS(curDepth, dis_data, point):
         return
     dis_data[point.y][point.x] = USED
     curDepth += 1
-    print "curDepth",curDepth ,"depthest",depthest
+    log("curDepth", curDepth , "depthest", depthest)
     if curDepth > depthest:
         depthest = curDepth
     neighbors = getNeighbors(point)
@@ -180,15 +199,20 @@ def wanderMove(body, next_point):
     nowDepth = -1
     nowPoint = None
     for point in neighbors:
-        print "邻居节点 ", point
+        # print "邻居节点 ", point
         if dis_data[point.y][point.x] == SNAKE_BODY:continue
         depth = getDepth(dis_data, point)
         print depth
         if depth > nowDepth:
             nowPoint = point
 
+    if body[0] in neighbors:
+        next_point.x = body[0].x
+        next_point.y = body[0].y
+        return next_point
+
     if not nowPoint:
-        print "wanderMove GAME OVER"
+        log( "wanderMove GAME OVER")
         return False
     next_point.x = nowPoint.x
     next_point.y = nowPoint.y
@@ -209,7 +233,7 @@ def followTail_isSafe(body, next_point):
     return False
 
 def followTail(body, next_point, enemy_aim):
-    print "跟随尾巴移动"
+    log("move, follow tail")
     dis_data = getDis(body, body[0], enemy_aim)
     # for i in dis_data: print i
     # print "="*30
@@ -219,30 +243,58 @@ def followTail(body, next_point, enemy_aim):
 
     if not IsRechabled(body[-1], dis_data):
         return False
+    # maxDistancePoint = max([dis_data[i.y][i.x] for i in nei])
+    # next_point.x = maxDistancePoint.x
+    # next_point.y = maxDistancePoint.y
+    # print "dis_data ", dis_data
+    # print "nei ", 
+    # for i in nei: print i,
+    # print "\n"
+    # print [dis_data[i.y][i.x] for i in nei]
 
-    min_dis = maxsize
+    random.shuffle(nei)
+    min_dis = 0#MAXSIZE
+    min_point = (0,0)#MAXSIZE
     for i in nei:
         tmp_dis = dis_data[i.y][i.x]
-        if tmp_dis > 0 and tmp_dis < min_dis:
-            # dis_data[i.y][i.x] = SNAKE_BODY
-            if not followTail_isSafe(body, next_point):
-                continue
-            next_point.x = i.x
-            next_point.y = i.y
-            return True
-            # tmp_nei = getNeighbors(i)
-            # for j in tmp_nei:
-            #     if dis_data[j.y][j.x] < tmp_dis:
-            #
-            #         return True
-            # dis_data[i.y][i.x] = tmp_dis
+        if tmp_dis <= 0: 
+            continue
+        elif tmp_dis > 0:
+            flag = False
+            if tmp_dis == min_dis:
+                preDis = (min_point.x - enemy_aim.x) **2 + (min_point.y - enemy_aim.y)**2
+                nowDis = (i.x - enemy_aim.x) **2 + (i.y - enemy_aim.y)**2
+                if nowDis > preDis:
+                    flag = True
+
+            elif tmp_dis > min_dis:
+                flag = True
+
+            if flag:
+                # print "min_dis ", min_dis, i
+                # dis_data[i.y][i.x] = SNAKE_BODY
+                if not followTail_isSafe(body, i):
+                    continue
+                min_dis = tmp_dis
+                min_point = i
+
+                next_point.x = i.x
+                next_point.y = i.y
+                # return True
+                # tmp_nei = getNeighbors(i)
+                # for j in tmp_nei:
+                #     if dis_data[j.y][j.x] < tmp_dis:
+                #
+                #         return True
+                # dis_data[i.y][i.x] = tmp_dis
+    if min_dis > 0: return True
     return False
 
 def SetSize(w,h):
     com.setSize(w,h)
 
 def CanMoveToAim(start, aim, body):
-    print "查找路径 。。。"
+    log( "searching path ...")
     next_point = Point(0,0)
     dis_data = getDis(body, aim)
     # for i in dis_data: print i
@@ -264,7 +316,7 @@ def CanMoveToAim(start, aim, body):
                 return next_point
     ret =  followTail(body, next_point, aim)
     if ret:
-        print "ret == ", ret
+        log( "ret == ", ret)
         return next_point
     else:
         return wanderMove(body, next_point)
